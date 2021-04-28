@@ -19,6 +19,7 @@
   "homepage": "https://github.com/GR47BD/backend#readme",
   "dependencies": {
     "git-clone": "^0.1.0",
-    "github-webhook-handler": "^1.0.0"
+    "github-webhook-handler": "^1.0.0",
+    "node-watch": "^0.7.1"
   }
 }

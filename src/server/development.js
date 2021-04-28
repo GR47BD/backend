@@ -6,7 +6,7 @@ class DevelopmentServer extends Server {
 
     constructor(backend){
 		super(backend);
-        var folder = path.join(process.cwd(), backend.options.folder);
+        var folder = path.join(process.cwd(), backend.options.development.folder);
         this.watcher = watch(folder, { recursive: true });
         this.watcher.on('change', () => this.build(folder));
     }

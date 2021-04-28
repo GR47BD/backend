@@ -6,7 +6,7 @@ class Backend {
 	constructor() {
 		this.options = require('./options.json');
 
-		if(this.options.mode === "development") {
+		if(this.options.mode == "development") {
 			this.server = new DevelopmentServer(this);
 		} else {
             this.server = new ProductionServer(this);
