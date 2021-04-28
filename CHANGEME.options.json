@@ -1,0 +1,12 @@
+{
+	"mode": "development",
+	"development": {
+		"folder": "../frontend"
+	},
+	"production": {
+		"secret": "test",
+		"tempFolder": "./temp",
+		"repo": "https://github.com/GR47BD/frontend.git"
+	},
+	"port": 8080
+}
