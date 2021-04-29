@@ -1,5 +1,6 @@
 const http = require('http')
 const path = require('path');
+const {execSync, exec} = require('child_process');
 
 class Server {
 	constructor(backend) {
@@ -24,7 +25,12 @@ class Server {
 	}
 
 	build(folder) {
-		require(path.join(folder, "./build/build.js"));
+		exec("node build/build", {cwd: folder}, (err, stdout, stderr) => {
+			if(err) throw err;
+
+			if(stdout) console.log(stdout);
+			if(stderr) console.error(stderr);
+		});
 	}
 
 	stop() {
