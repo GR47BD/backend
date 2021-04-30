@@ -17,7 +17,7 @@ class ProductionServer extends Server {
 		this.handler(req, res, err => {
 			if(err) {
 				res.statusCode = 500;
-				res.end("Error!")
+				res.end("Error!");
 
 				return;
 			}
@@ -28,6 +28,8 @@ class ProductionServer extends Server {
 
 	async build() {
 		const startTime = new Date().getTime();
+
+		console.log(`Found change to ${this.backend.options.production.repo}`);
 
 		if(fs.existsSync(this.folder)) await fs.promises.rm(this.folder, {recursive: true});
 		await fs.promises.mkdir(this.folder);

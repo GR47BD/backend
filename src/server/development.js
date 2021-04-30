@@ -18,9 +18,13 @@ class DevelopmentServer extends Server {
 		const regexes = [/node_modules\//, /\.git\//, /dist\//];
 		const file = path.relative(this.folder, f).split("\\").join("/");
 
+		if(file === "") return skip;
+
 		for(const regex of regexes) {
 			if(regex.test(file)) return skip;
 		}
+
+		console.log(`Found change to ${file}`);
 
 		return true;
 	}
