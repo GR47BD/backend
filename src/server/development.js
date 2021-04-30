@@ -19,7 +19,6 @@ class DevelopmentServer extends Server {
 		const file = path.relative(this.folder, f).split("\\").join("/");
 
 		for(const regex of regexes) {
-			console.log(file, regex, regex.test(file));
 			if(regex.test(file)) return skip;
 		}
 

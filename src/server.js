@@ -35,10 +35,12 @@ class Server {
 
 		if(!file.startsWith(this.folder)) return this.sendUnauthorizedError(res);
 
+		if(!fs.existsSync(file)) return this.sendNotFoundError(res);
+
 		const data = await this.loadFile(file)
 			.catch(() => this.sendInternalServerError(res));
 
-		if(data === undefined && !res.destroyed) return this.sendNotFoundError(res);
+		if(res.destroyed) return;
 
 		let type = mime.lookup(path.extname(url));
 		if (!type) type = 'text/html';
@@ -83,8 +85,8 @@ class Server {
 			exec(command, {cwd: this.folder}, (err, stdout, stderr) => {
 				if(err) throw err;
 
-				if(stdout) console.log(stdout);
-				if(stderr) console.error(stderr);
+				//if(stdout) console.log(stdout);
+				//if(stderr) console.error(stderr);
 
 				resolve();
 			});
@@ -104,6 +106,7 @@ class Server {
 
 		if(this.backend.options.mode === "production") await this.installModules();
 		await this.runBuild();
+		console.log("The site has been updated.");
 	}
 
 	stop() {
