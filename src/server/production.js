@@ -20,8 +20,15 @@ class ProductionServer extends Server {
 	}
 
 	async build() {
-		clone(this.backend.options.production.repo, this.folder, () => {
-			await super.build();
+		await this.clone();
+		await super.build();
+	}
+
+	clone() {
+		return new Promise(resolve => {
+			clone(this.backend.options.production.repo, this.folder, async () => {
+				resolve();
+			});
 		});
 	}
 }
