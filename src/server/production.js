@@ -1,6 +1,6 @@
 const Server = require("../server");
-const clone = require('git-clone');
 const path = require('path');
+const fs = require('fs');
 const createHandler = require('github-webhook-handler');
 
 class ProductionServer extends Server {
@@ -20,16 +20,14 @@ class ProductionServer extends Server {
 	}
 
 	async build() {
+		if(fs.existsSync(this.folder)) await fs.promises.rm(this.folder, {recursive: true});
+		await fs.promises.mkdir(this.folder);
 		await this.clone();
 		await super.build();
 	}
 
 	clone() {
-		return new Promise(resolve => {
-			clone(this.backend.options.production.repo, this.folder, async () => {
-				resolve();
-			});
-		});
+		return this.executeAsync(`git clone ${this.backend.options.production.repo} .`);
 	}
 }
 

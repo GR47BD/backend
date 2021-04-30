@@ -51,7 +51,7 @@ class Server {
 		if(this.cache.has(file)) return this.cache.get(file);
 
 		const data = await fs.promises.readFile(file)
-			.catch(err => {console.log(err);throw err});
+			.catch(err => {console.log(err); throw err});
 		this.cache.set(file, data);
 
 		return data;
@@ -102,7 +102,7 @@ class Server {
 	async build() {
 		this.built = true;
 
-		await this.installModules();
+		if(this.backend.options.mode === "production") await this.installModules();
 		await this.runBuild();
 	}
 
