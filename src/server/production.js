@@ -20,9 +20,14 @@ class ProductionServer extends Server {
 	}
 
 	async build() {
+		const startTime = new Date().getTime();
+
 		if(fs.existsSync(this.folder)) await fs.promises.rm(this.folder, {recursive: true});
 		await fs.promises.mkdir(this.folder);
 		await this.clone();
+
+		console.log(`The site has been cloned in ${((new Date().getTime()-startTime)/1000).toFixed(2)}s`);
+
 		await super.build();
 	}
 

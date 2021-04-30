@@ -104,9 +104,12 @@ class Server {
 	async build() {
 		this.built = true;
 
+		const startTime = new Date().getTime();
+
 		if(this.backend.options.mode === "production") await this.installModules();
 		await this.runBuild();
-		console.log("The site has been updated.");
+
+		console.log(`The site has been updated in ${((new Date().getTime()-startTime)/1000).toFixed(2)}s`);
 	}
 
 	stop() {
