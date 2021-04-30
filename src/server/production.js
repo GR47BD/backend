@@ -16,6 +16,8 @@ class ProductionServer extends Server {
 	handle(req, res) {
 		this.handler(req, res, () => res.statusCode = 404);
 
+		if(req.url === "/webhook") return;
+
 		super.handle(req, res);
 	}
 
