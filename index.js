@@ -15,6 +15,7 @@ class Backend {
 
 	async start() {
 		await this.server.start();
+		this.server.build();
 	}
 
 	async stop() {

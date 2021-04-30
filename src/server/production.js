@@ -7,22 +7,21 @@ class ProductionServer extends Server {
 	constructor(backend) {
 		super(backend);
 
+		this.folder = path.join(process.cwd(), this.backend.options.production.tempFolder);
 		this.handler = createHandler({ path: '/webhook', secret: this.backend.options.production.secret});
 
-		handler.on('push', () => this.clone());
+		handler.on('push', () => this.build());
 	}
 
 	handle(req, res) {
 		this.handler(req, res, () => res.statusCode = 404);
 
-		super.handle(req, res)
+		super.handle(req, res);
 	}
 
-	clone() {
-		const tempFolder = path.join(process.cwd(), this.backend.options.production.tempFolder);
-
-		clone(this.backend.options.production.repo, tempFolder, () => {
-			this.build(tempFolder);
+	build() {
+		clone(this.backend.options.production.repo, this.folder, () => {
+			super.build();
 		});
 	}
 }
