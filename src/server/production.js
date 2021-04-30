@@ -14,11 +14,16 @@ class ProductionServer extends Server {
 	}
 
 	handle(req, res) {
-		this.handler(req, res, () => res.statusCode = 404);
+		this.handler(req, res, err => {
+			if(err) {
+				res.statusCode = 500;
+				res.end("Error!")
 
-		if(req.url === "/webhook") return;
+				return;
+			}
 
-		super.handle(req, res);
+			super.handle(req, res);
+		});
 	}
 
 	async build() {
