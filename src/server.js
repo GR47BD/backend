@@ -78,15 +78,32 @@ class Server {
 		res.end(message);
 	}
 
-	build() {
+	executeAsync(command) {
+		return new Promise(resolve => {
+			exec(command, {cwd: this.folder}, (err, stdout, stderr) => {
+				if(err) throw err;
+
+				if(stdout) console.log(stdout);
+				if(stderr) console.error(stderr);
+
+				resolve();
+			});
+		});
+	}
+
+	installModules() {
+		return this.executeAsync("npm install");
+	}
+
+	runBuild() {
+		return this.executeAsync("node build/build");
+	}
+
+	async build() {
 		this.built = true;
 
-		exec("node build/build", {cwd: this.folder}, (err, stdout, stderr) => {
-			if(err) throw err;
-
-			if(stdout) console.log(stdout);
-			if(stderr) console.error(stderr);
-		});
+		await this.installModules();
+		await this.runBuild();
 	}
 
 	stop() {
