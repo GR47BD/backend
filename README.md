@@ -1,5 +1,5 @@
 # backend
-Contains all the backend code for our project. The backend runs the actual http server and handles client requests.
+Contains all the backend code for our project. The backend runs the actual http server and handles client requests..
 # How to use
 Before starting the backend, you will have to configure an options.json file. To this end, you can copy the included CHANGEME.options.json, rename it and then, add the options you like. Here is an overview of what all the options do:
 ```bash
