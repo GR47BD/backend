@@ -4,6 +4,7 @@ const fs = require('fs');
 const createHandler = require('github-webhook-handler');
 
 class ProductionServer extends Server {
+
 	constructor(backend) {
 		super(backend);
 
@@ -37,7 +38,7 @@ class ProductionServer extends Server {
 
 		console.log(`The site has been cloned in ${((new Date().getTime()-startTime)/1000).toFixed(2)}s`);
 
-		await super.build();
+		await super.build(this.folder);
 	}
 
 	clone() {

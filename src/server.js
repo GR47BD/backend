@@ -91,23 +91,26 @@ class Server {
 				resolve();
 			});
 		});
+
+	
 	}
 
-	installModules() {
-		return this.executeAsync("npm install");
+	installModules(folder) {
+		return this.executeAsync("npm install", folder);
 	}
 
-	runBuild() {
-		return this.executeAsync("node build/build");
+	runBuild(folder) {
+		console.log("this " + folder);
+		return this.executeAsync("node build/build", folder);
 	}
 
-	async build() {
+	async build(folder) {
 		this.built = true;
-
+		if(!folder) folder = this.folder;
 		const startTime = new Date().getTime();
 
-		if(this.backend.options.mode === "production") await this.installModules();
-		await this.runBuild();
+		if(this.backend.options.mode === "production") await this.installModules(folder);
+		await this.runBuild(folder);
 
 		console.log(`The site has been updated in ${((new Date().getTime()-startTime)/1000).toFixed(2)}s`);
 	}

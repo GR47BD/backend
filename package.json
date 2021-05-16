@@ -20,7 +20,9 @@
   "dependencies": {
     "github-webhook-handler": "^1.0.0",
     "mime-types": "^2.1.30",
+    "n": "^7.2.2",
     "node-watch": "^0.7.1",
+    "nvm": "0.0.4",
     "rimraf": "^3.0.2"
   }
 }
