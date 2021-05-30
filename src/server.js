@@ -106,6 +106,7 @@ class Server {
 
 	async build(folder) {
 		this.built = true;
+		this.cache.clear();
 		if(!folder) folder = this.folder;
 		const startTime = new Date().getTime();
 
